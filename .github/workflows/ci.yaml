@@ -1,0 +1,10 @@
+name: CI workflow
+description: This workflow will trigger via pull request
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-ci:
+    uses: ./.github/workflows/_build.yaml

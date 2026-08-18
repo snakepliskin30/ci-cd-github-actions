@@ -7,10 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/build-astro
+    uses: ./.github/workflow/_build.yaml
 
   deploy:
     runs-on: ubuntu-latest

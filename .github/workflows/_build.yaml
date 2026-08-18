@@ -1,0 +1,39 @@
+name: Build Workflow (reusable)
+description: Reusable build workflow
+
+on:
+  workflow_call:
+    inputs:
+      node-version:
+        description: Node js version to use for build
+        required: false
+        default: 22
+        type: string
+      artifact-name:
+        description: Output artifact name after build
+        required: false
+        default: dist
+        type: string
+    outputs:
+      artifact-name:
+        description: Name of the artifact produced by the build job.
+        value: ${{ jobs.build.outputs.artifact-name }}
+
+jobs:
+  build:
+    runs-on: Ubuntu-latest
+    outputs:
+      artifact-name: ${{ steps.echo.outputs.name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build
+        uses: ./.github/actions/build-astro
+        with:
+          node-version: ${{ inputs.node-version }}
+          artifact-name: ${{ inputs.artifact-name }}
+
+      - name: Echo artifact name
+        id: echo
+        run: echo "name=${{ inputs.artifact-name }}" >> "$GITHUB_OUTPUT"
