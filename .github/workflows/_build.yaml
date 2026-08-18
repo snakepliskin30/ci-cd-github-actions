@@ -21,7 +21,7 @@ on:
 
 jobs:
   build:
-    runs_on: Ubuntu-latest
+    runs-on: Ubuntu-latest
     outputs:
       artifact-name: ${{ steps.echo.outputs.name }}
     steps:
